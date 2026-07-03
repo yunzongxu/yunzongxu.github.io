@@ -1,140 +1,500 @@
+<!DOCTYPE html>
+<html lang="en">
 <head>
-  <meta charset="utf-8">  
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="https://latex.vercel.app/style.css">
-  <title>Yunzong Xu</title>
-  <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-W5DJ4FB2QD"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-W5DJ4FB2QD');
-</script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Yunzong Xu</title>
+<meta name="description" content="Yunzong Xu — Assistant Professor at the University of Illinois Urbana-Champaign, working on the mathematical foundations of machine learning and sequential decision-making.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23234a86'/%3E%3Cpath d='M6 21H15V12H26' fill='none' stroke='%23ffffff' stroke-width='2.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#ffffff;           /* pure white */
+    --ink:#14161b;             /* near-black body text, high contrast */
+    --muted:#565a62;           /* dark enough to read; metadata + margin notes only */
+    --accent:#234a86;          /* ink blue, used sparingly */
+    --rule:#e7e7ea;            /* cool hairline */
+    --measure:43rem;           /* reading column */
+    --margin:13rem;            /* side-note column */
+    --gap:2.5rem;
+  }
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:"EB Garamond",Georgia,"Times New Roman",serif;
+    font-size:20px;
+    line-height:1.62;
+    font-feature-settings:"kern","liga","onum";
+    text-rendering:optimizeLegibility;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{
+    color:var(--accent);
+    text-decoration:underline;
+    text-decoration-color:rgba(35,76,134,.32);
+    text-decoration-thickness:1px;
+    text-underline-offset:.14em;
+    text-decoration-skip-ink:auto;
+    transition:color .15s ease,text-decoration-color .15s ease;
+  }
+  a:hover{text-decoration-color:var(--accent)}
+  :focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:0}
+
+  .page{max-width:60rem;margin:0 auto;padding:4.5rem 1.5rem 6rem}
+
+  /* ---- top line of links: plain, scrolls away, never sticky ---- */
+  nav.top{
+    max-width:var(--measure);
+    margin:0 0 3.2rem;
+    font-size:.82rem;letter-spacing:.06em;text-transform:uppercase;
+    color:var(--muted);
+  }
+  nav.top a{color:var(--muted);text-decoration:none;margin-right:1.4rem;display:inline-block;transition:color .15s ease}
+  nav.top a:hover{color:var(--accent)}
+
+  /* ---- header ---- */
+  header.masthead{max-width:var(--measure)}
+  h1.name{
+    font-weight:500;font-size:2.9rem;line-height:1.05;margin:0;letter-spacing:.005em;
+  }
+  .role{
+    margin:.7rem 0 0;color:var(--muted);font-size:1.02rem;line-height:1.45;
+    max-width:34rem;
+  }
+  .epigraph{
+    margin:1.9rem 0 0;
+    font-size:1.18rem;
+    color:var(--ink);
+  }
+  .epigraph::before{content:"";display:block;width:2.2rem;height:1px;background:var(--accent);margin:0 0 1.1rem}
+  .epigraph .quote-text{font-style:italic}
+  .epigraph .quote-source{
+    display:inline-block;
+    margin-left:.45rem;
+    font-style:normal;
+    font-size:.72rem;
+    line-height:1.2;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+    color:var(--muted);
+    text-decoration:underline;
+    text-decoration-color:rgba(86,90,98,.28);
+    text-underline-offset:.16em;
+    white-space:nowrap;
+  }
+  .epigraph .quote-source:hover{color:var(--accent);text-decoration-color:rgba(35,74,134,.5)}
+
+  /* ---- body column with an explicit note column ---- */
+  section{max-width:calc(var(--measure) + var(--gap) + var(--margin));position:relative;margin-top:3.6rem;scroll-margin-top:2rem}
+  .body-col{position:relative}
+  h2{
+    max-width:var(--measure);
+    font-weight:500;font-size:.84rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--accent);margin:0 0 1.3rem;
+  }
+  p{margin:0 0 1.1rem;max-width:var(--measure)}
+  .lede{margin-bottom:1.4rem}
+
+  /* ---- side notes: grid placement keeps desktop alignment and mobile order ---- */
+  .note-row{
+    display:grid;
+    grid-template-columns:minmax(0,var(--measure)) var(--margin);
+    column-gap:var(--gap);
+    align-items:start;
+    max-width:calc(var(--measure) + var(--gap) + var(--margin));
+    margin:0 0 1.1rem;
+  }
+  .note-row > p,
+  .note-row > .stack,
+  .note-row > .grouphead{max-width:none;margin-bottom:0}
+  .note-row.note-row-head{margin:0 0 .9rem}
+  .sidenote{
+    width:auto;
+    margin:.12rem 0 0;
+    font-size:.82rem;line-height:1.5;color:var(--muted);
+  }
+  .sidenote .label{color:var(--accent);font-variant:all-small-caps;letter-spacing:.05em;font-size:.92em}
+  .stack{max-width:var(--measure)}
+
+  /* ---- publications ---- */
+  .conv{margin:0 0 1.6rem;font-size:.82rem;line-height:1.5;color:var(--muted)}
+  .group{max-width:calc(var(--measure) + var(--gap) + var(--margin));margin:1.8rem 0 0}
+  .group .grouphead{
+    max-width:var(--measure);
+    font-style:italic;color:var(--ink);font-size:1.02rem;margin:0 0 .9rem;
+    padding-bottom:.35rem;border-bottom:1px solid var(--rule);
+  }
+  .pub{
+    max-width:var(--measure);
+    display:grid;grid-template-columns:2.7rem 1fr;column-gap:1.4rem;
+    margin:0 0 1.45rem;
+  }
+  .pub .yr{
+    font-size:.78rem;color:var(--muted);font-variant-numeric:tabular-nums;
+    letter-spacing:.02em;padding-top:.42em;
+  }
+  .pub .title{display:block;font-size:1.06rem;line-height:1.4}
+  .pub .auth{display:block;color:var(--muted);font-size:.92rem;margin-top:.18rem}
+  .pub .venue{display:block;margin-top:.3rem;font-size:.96rem;font-weight:600;color:black}
+  .tag{display:block;margin-top:.18rem;font-style:italic;font-size:.86rem;color:var(--muted)}
+
+  /* ---- teaching / lists ---- */
+  .course{margin:0 0 1rem}
+  .course .ct{font-size:1.04rem}
+  .course .cd{color:var(--muted);font-size:.92rem}
+
+  /* ---- students ---- */
+  .subhead{font-style:italic;color:var(--ink);font-size:1.02rem;margin:1.6rem 0 .9rem;
+    padding-bottom:.35rem;border-bottom:1px solid var(--rule)}
+  .person{margin:0 0 .95rem}
+  .person .pn{font-size:1.04rem}
+  .person .pd{color:var(--muted);font-size:.92rem;margin-top:.1rem}
+
+  /* ---- contact ---- */
+  .contact a{font-size:1.02rem}
+  .contact .row{margin:0 0 .55rem}
+  .k{color:var(--muted);font-size:.82rem;letter-spacing:.08em;text-transform:uppercase;display:inline-block;width:5.5rem;vertical-align:baseline}
+
+  footer{max-width:var(--measure);margin-top:5rem;padding-top:1.4rem;border-top:1px solid var(--rule);
+    color:var(--muted);font-size:.84rem}
+
+  /* ---- responsive: notes fold inline under their anchor ---- */
+  @media (max-width:1024px){
+    :root{--measure:100%}
+    body{font-size:18px}
+    h1.name{font-size:2.3rem}
+    section,.body-col,.group,.note-row{max-width:100%}
+    .note-row{display:block;margin-bottom:1.4rem}
+    .note-row > p,
+    .note-row > .stack{margin-bottom:0}
+    .sidenote{
+      width:auto;margin:.75rem 0 1.3rem;
+      padding-left:.9rem;border-left:2px solid var(--accent);
+    }
+    .page{padding-top:3rem}
+  }
+
+  @media (prefers-reduced-motion:no-preference){
+    html{scroll-behavior:smooth}
+    body{animation:fade .5s ease both}
+    @keyframes fade{from{opacity:0}to{opacity:1}}
+  }
+</style>
 </head>
-<p>&nbsp;</p>
-<!-- Google tag (gtag.js) --><header>
-<h1>Yunzong Xu</h1>
-</header>
-<p class="author">Current Version: March 2025</p>
-<div class="abstract">
-<h2>About Me</h2>
-<p>I recently started my position as an assistant professor in the Department of <a href="https://ise.illinois.edu/">ISE</a> and the <a href="https://csl.illinois.edu/">CSL</a> at the University of Illinois, Urbana-Champaign. I am also affiliated with the Departments of <a href="https://siebelschool.illinois.edu/">CS</a> and <a href="https://ece.illinois.edu/">ECE</a>.</p>
-<p>This site is a work in progress, much like this stage of my life. I hope to find time for a meaningful update soon.</p>
+<body>
+<div class="page">
+
+  <nav class="top">
+    <a href="#about">About</a>
+    <a href="#research">Research</a>
+    <a href="#teaching">Teaching</a>
+    <a href="#students">Students</a>
+    <a href="#contact">Contact</a>
+  </nav>
+
+  <header class="masthead">
+    <h1 class="name">Yunzong&nbsp;Xu</h1>
+    <p class="role">Assistant Professor, <a href="https://ise.illinois.edu" target="_blank" rel="noopener">Industrial and Enterprise Systems Engineering</a><br />Affiliate Faculty, <a href="https://cs.illinois.edu" target="_blank" rel="noopener">Computer Science</a> and <a href="https://ece.illinois.edu" target="_blank" rel="noopener">Electrical and Computer Engineering</a><br />University of Illinois Urbana-Champaign</p>
+    <p class="epigraph"><span class="quote-text">&ldquo;I&rsquo;m Nobody! Who are you?&rdquo;</span> <a class="quote-source" href="https://www.poetryfoundation.org/poems/1647321/im-nobody-who-are-you" target="_blank" rel="noopener">&mdash; Emily Dickinson</a></p>
+  </header>
+
+  <!-- ============================ ABOUT ============================ -->
+  <section id="about">
+    <div class="body-col">
+      <h2>About</h2>
+
+      <div class="note-row">
+        <p class="lede">I study the mathematical foundations of machine learning and sequential decision-making. The problems I think about usually contain some kind of friction: not enough data, not enough information, not enough time, not enough resources, or not enough freedom to try everything. Theory is a way of asking which frictions are reducible and which ones are fundamental.</p>
+        <aside class="sidenote">
+          <span class="label">Lemma</span><br>
+          Some great people have lemmas named after them. I do not have one yet. But I have a lovely cat whose name is <a href="/files/Lemma2026.png" target="_blank" rel="noopener">Lemma</a>.
+        </aside>
+      </div>
+
+      <div class="note-row">
+        <p>Before joining UIUC in 2024, I was a postdoctoral researcher at Microsoft Research. Before that I completed my PhD at MIT and my undergraduate studies at Tsinghua University.</p>
+        <aside class="sidenote">
+          <span class="label">Route</span><br>
+          <a href="https://en.wikipedia.org/wiki/List_of_Major_National_Historical_and_Cultural_Sites_in_Beijing" target="_blank" rel="noopener">Beijing</a> &rarr; <a href="https://en.wikipedia.org/wiki/List_of_National_Historic_Landmarks_in_Boston" target="_blank" rel="noopener">Boston</a> &rarr; <a href="https://en.wikipedia.org/wiki/List_of_National_Historic_Landmarks_in_New_York_City" target="_blank" rel="noopener">New York</a> &rarr; <a href="https://en.wikipedia.org/wiki/Morrow_Plots" target="_blank" rel="noopener">Urbana</a>. Four world-class cities famous for their historic landmarks (can be a corn field).
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================ RESEARCH ============================ -->
+  <section id="research">
+    <div class="body-col">
+      <h2>Research</h2>
+
+      <div class="note-row">
+        <p class="lede">My work develops mathematical foundations for algorithms that learn from data and make decisions under uncertainty. Topics include online learning, deep learning, bandit algorithms, reinforcement learning, stochastic networks, information theory, and game theory, with applications to AI systems, communication networks, online marketplaces, data centers, and supply chains. I am interested in how algorithms acquire and use information over time, how geometric, statistical, and network structures shape what is achievable, and where the fundamental limits lie.</p>
+        <aside class="sidenote">
+          <span class="label">convention</span><br>
+          The default authorship order in my papers is alphabetical.
+        </aside>
+      </div>
+
+      <!-- ---- Under Review ---- -->
+      <div class="group">
+        <p class="grouphead">Under Review</p>
+
+        <div class="pub">
+          <span class="yr">2026</span>
+          <div class="pub-body">
+            <a class="title" href="https://arxiv.org/abs/2606.18218" target="_blank" rel="noopener">Finite-Time Queue Peak Laws in Stochastic Networks: Logarithmic Scaling After Geometric Thresholds</a>
+            <span class="auth">With Hao Liang and Cheng Tang</span>
+            <span class="venue">New</span>
+          </div>
+        </div>
+
+        <div class="pub">
+          <span class="yr">2026</span>
+          <div class="pub-body">
+            <a class="title" href="https://arxiv.org/abs/2606.14679" target="_blank" rel="noopener">Optimal Hidden-Target Learning for Online Inventory Optimization on General Convex Sets</a>
+            <span class="auth">With Anthony Pineci</span>
+            <span class="venue">New</span>
+          </div>
+        </div>
+
+        <div class="pub">
+          <span class="yr">2025</span>
+          <div class="pub-body">
+            <a class="title" href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=5360747" target="_blank" rel="noopener">Spatial Matching of Random Samples on a Circle: Theoretic Analysis and Applications to Ride-Hailing Systems</a>
+            <span class="auth">With Hao Liang and Zizhuo Wang</span>
+          </div>
+        </div>
+
+        <div class="pub">
+          <span class="yr">2025</span>
+          <div class="pub-body">
+            <a class="title" href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=5434274" target="_blank" rel="noopener">Meta Dynamic Pricing with Nonparametric Empirical Bayes</a>
+            <span class="auth">With Jinhui Han, Ming Hu, and Xilin Zhang</span>
+          </div>
+        </div>
+
+        <div class="pub">
+          <span class="yr">2025</span>
+          <div class="pub-body">
+            <a class="title" href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=5261068" target="_blank" rel="noopener">Feature-Based Dynamic Pricing with Online Learning and Offline Data</a>
+            <span class="auth">With Jinzhi Bu, David Simchi-Levi, and Sabrina Zhai</span>
+            <span class="tag">Finalist, INFORMS Revenue Management &amp; Pricing Student Paper Award</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ---- Journal Publications ---- -->
+      <div class="group">
+        <p class="grouphead">Journal Publications</p>
+
+        <div class="pub">
+          <span class="yr">2025</span>
+          <div class="pub-body">
+            <a class="title" href="https://pubsonline.informs.org/doi/10.1287/opre.2020.0753" target="_blank" rel="noopener">Blind Network Revenue Management and Bandits with Knapsacks Under Limited Switches</a>
+            <span class="auth">With David Simchi-Levi and Jinglong Zhao</span>
+            <span class="venue">Operations Research</span>
+            <span class="tag">Finalist, IBM Service Science Best Student Paper Award</span>
+          </div>
+        </div>
+
+        <div class="pub">
+          <span class="yr">2023</span>
+          <div class="pub-body">
+            <a class="title" href="https://pubsonline.informs.org/doi/10.1287/mnsc.2023.4755" target="_blank" rel="noopener">Phase Transitions in Bandits with Switching Constraints</a>
+            <span class="auth">With David Simchi-Levi</span>
+            <span class="venue">Management Science</span>
+            <span class="tag">Finalist, INFORMS Applied Probability Society Best Student Paper Award &middot; Preliminary Version, NeurIPS 2019</span>
+          </div>
+        </div>
+
+        <div class="pub">
+          <span class="yr">2023</span>
+          <div class="pub-body">
+            <a class="title" href="https://pubsonline.informs.org/doi/10.1287/msom.2023.1224" target="_blank" rel="noopener">Assortment Optimization for a Multi-Stage Choice Model</a>
+            <span class="auth">With Zizhuo Wang</span>
+            <span class="venue">Manufacturing &amp; Service Operations Management</span>
+          </div>
+        </div>
+
+        <div class="pub">
+          <span class="yr">2022</span>
+          <div class="pub-body">
+            <a class="title" href="https://pubsonline.informs.org/doi/10.1287/mnsc.2022.4322" target="_blank" rel="noopener">Online Pricing with Offline Data: Phase Transition and Inverse-Square Law</a>
+            <span class="auth">With Jinzhi Bu and David Simchi-Levi</span>
+            <span class="venue">Management Science</span>
+            <span class="tag"> Winner, INFORMS Data Mining Best Theoretical Paper &middot; Preliminary Version, ICML 2020</span>
+          </div>
+        </div>
+        <div class="pub">
+          <span class="yr">2022</span>
+          <div class="pub-body">
+            <a class="title" href="https://pubsonline.informs.org/doi/10.1287/moor.2021.1193" target="_blank" rel="noopener">Bypassing the Monster: A Faster and Simpler Optimal Algorithm for Contextual Bandits Under Realizability</a>
+            <span class="auth">With David Simchi-Levi</span>
+            <span class="venue">Mathematics of Operations Research</span>
+            <span class="tag">Honorable Mention, INFORMS George Nicholson Student Paper Competition</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ---- Conference Publications ---- -->
+      <div class="group">
+        <p class="grouphead">Conference Publications</p>
+
+        <div class="pub">
+          <span class="yr">2025</span>
+          <div class="pub-body">
+            <a class="title" href="https://arxiv.org/abs/2503.04010" target="_blank" rel="noopener">Greedy Algorithm for Structured Bandits: A Sharp Characterization of Asymptotic Success / Failure</a>
+            <span class="auth">With Alex Slivkins and Shiliang Zuo</span>
+            <span class="venue">Neural Information Processing Systems (NeurIPS)</span>
+          </div>
+        </div>
+
+        <div class="pub">
+          <span class="yr">2022</span>
+          <div class="pub-body">
+            <a class="title" href="https://arxiv.org/abs/2010.03104" target="_blank" rel="noopener">Offline Reinforcement Learning: Fundamental Barriers for Value Function Approximation</a>
+            <span class="auth">With Dylan Foster, Akshay Krishnamurthy, and David Simchi-Levi</span>
+            <span class="venue">Conference on Learning Theory (COLT)</span>
+            <span class="tag">Oral, NeurIPS 2021 Offline RL Workshop</span>
+          </div>
+        </div>
+
+        <div class="pub">
+          <span class="yr">2021</span>
+          <div class="pub-body">
+            <a class="title" href="https://arxiv.org/abs/2111.10919.html" target="_blank" rel="noopener">Instance-Dependent Complexity of Contextual Bandits and Reinforcement Learning: A Disagreement-Based Perspective</a>
+            <span class="auth">With Dylan Foster, Alexander Rakhlin, and David Simchi-Levi</span>
+            <span class="venue">Conference on Learning Theory (COLT)</span>
+          </div>
+        </div>
+
+        <div class="pub">
+          <span class="yr">2020</span>
+          <div class="pub-body">
+            <a class="title" href="https://arxiv.org/abs/1910.08693" target="_blank" rel="noopener">Online Pricing with Offline Data: Phase Transition and Inverse-Square Law</a>
+            <span class="auth">With Jinzhi Bu and David Simchi-Levi</span>
+            <span class="venue">International Conference on Machine Learning (ICML)</span>
+          </div>
+        </div>
+
+        <div class="pub">
+          <span class="yr">2019</span>
+          <div class="pub-body">
+            <a class="title" href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=3380783" target="_blank" rel="noopener">Phase Transitions and Cyclic Phenomena in Bandits with Switching Constraints</a>
+            <span class="auth">With David Simchi-Levi</span>
+            <span class="venue">Neural Information Processing Systems (NeurIPS)</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================ TEACHING ============================ -->
+  <section id="teaching">
+    <div class="body-col">
+      <h2>Teaching</h2>
+
+      <div class="note-row">
+        <div class="stack">
+          <div class="course">
+            <div class="ct">IE 498 &middot; AI, Markets, and Game Theory</div>
+            <div class="cd">A new upper-level undergraduate and graduate course co-designed and co-written from scratch with Bhaskar Ray Chaudhury. To be offered in Fall 2026.</div>
+          </div>
+
+          <div class="course">
+            <div class="ct">IE 598 &middot; Foundations of Modern Machine Learning</div>
+            <div class="cd">A graduate course I designed and wrote from scratch &mdash; syllabus, materials, and original notes. Fall 2024, Fall 2025.</div>
+          </div>
+
+          <div class="course">
+            <div class="ct">IE 310 &middot; Deterministic Models in Optimization</div>
+            <div class="cd">The core undergraduate optimization course, required of every ISE student. Fall 2025.</div>
+          </div>
+        </div>
+        <aside class="sidenote">
+          <span class="label">recognition</span><br>
+          J.&nbsp;F. Sharp Outstanding Teaching Award in Industrial Engineering, 2026.<br>List of Teachers Ranked as Excellent, Fall 2024.
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================ STUDENTS ============================ -->
+  <section id="students">
+    <div class="body-col">
+      <h2>Students</h2>
+
+      <div class="note-row">
+        <p class="lede">I am fortunate to work with the following students.</p>
+      </div>
+
+      <p class="subhead">Doctoral Thesis Research Advising</p>
+
+      <div class="person">
+        <div class="pn">Hao Liang</div>
+        <div class="pd">ISE PhD &nbsp;&middot;&nbsp; since 2023</div>
+      </div>
+
+      <div class="person">
+        <div class="pn">Boxuan Zhou</div>
+        <div class="pd">ISE PhD, co-advised with Lavanya Marla &nbsp;&middot;&nbsp; since 2024</div>
+      </div>
+
+      <div class="person">
+        <div class="pn">Anthony Pineci</div>
+        <div class="pd">CS PhD &nbsp;&middot;&nbsp; since 2025</div>
+      </div>
+
+      <div class="person">
+        <div class="pn">Cheng Tang</div>
+        <div class="pd">CS PhD &nbsp;&middot;&nbsp; since 2025</div>
+      </div>
+
+      <div class="person">
+        <div class="pn">Shunri Zheng</div>
+        <div class="pd">ISE PhD &nbsp;&middot;&nbsp; since 2025</div>
+      </div>
+
+      <p class="subhead" style="margin-top:1.8rem">Undergraduate Research Advising</p>
+
+      <div class="person">
+        <div class="pn">Qiushi Han</div>
+        <div class="pd">BS, UIUC &nbsp;&rarr;&nbsp; PhD, MIT &nbsp;&middot;&nbsp; 2024-2025</div>
+      </div>
+
+      <div class="person">
+        <div class="pn">Zhangyi Liu</div>
+        <div class="pd">BS, Tsinghua &nbsp;&rarr;&nbsp; PhD, Stanford &nbsp;&middot;&nbsp; 2025-2026</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================ CONTACT ============================ -->
+  <section id="contact">
+    <div class="body-col contact">
+      <h2>Contact</h2>
+
+      <div class="note-row">
+        <div class="stack">
+          <p class="row"><span class="k">Email</span> xyz <span style="color:var(--muted)">at</span> illinois <span style="color:var(--muted)">dot</span> edu</p>
+          <p class="row"><span class="k">Office</span> 110 Coordinated Science Laboratory</p>
+        </div>
+        <aside class="sidenote">
+          <span class="label">Notes</span><br>
+          For PhD applicants: Thank you for your interest. Please apply directly through the ISE, CS, or ECE departments. Due to the high volume of inquiries, I&rsquo;m unable to respond to individual questions regarding PhD admissions. I appreciate your understanding.
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <a href="https://yunzongxu.github.io" target="_blank" rel="noopener">Yunzong Xu</a> &middot; <a href="https://grainger.illinois.edu/about/directory/faculty/xyz" target="_blank" rel="noopener">Grainger Engineering Profile</a> &middot; <a href="https://scholar.google.com/citations?user=Wl_utw8AAAAJ" target="_blank" rel="noopener">Google Scholar</a>
+  </footer>
+
 </div>
-<nav class="toc" role="navigation">
-<h2>Contents</h2>
-<ol>
-<li><a href="#research">Research</a></li>
-<li><a href="#teaching">Teaching</a></li>
-<li><a href="#contact">Contact</a></li>
-</ol>
-</nav>
-<section id="research" class="section">
-<h2>Research</h2>
-<p>I do research in machine learning theory, foundations of AI, operations research, and management science. Specific topics of interest include online learning, deep learning, sequential decision making, and mathematical problems related to markets, incentives, and social good.</p>
-<p>Below is a list of my publications.<sup><a id="ref1" href="#fn1">1</a></sup></p>
-<div class="article-content">
-<div class="field field-name-body field-type-text-with-summary field-label-hidden">
-<div class="field-items">
-<div class="field-item even">
-<p><strong>Journal Publications</strong></p>
-<ul>
-<li><a href="https://arxiv.org/abs/2003.12699">Bypassing the Monster: A Faster and Simpler Optimal Algorithm for Contextual Bandits Under Realizability</a> (with David Simchi-Levi)
-<ul>
-<li><em><strong>Mathematics of Operations Research</strong></em> (2022)</li>
-<li>Honorable Mention, <span style="color: #000080;">INFORMS George Nicholson Student Paper Competition</span>, 2020</li>
-</ul>
-</li>
-<li><a href="https://arxiv.org/abs/1910.08693">Online Pricing with Offline Data: Phase Transition and Inverse Square Law</a> (with Jinzhi Bu and David Simchi-Levi)
-<ul>
-<li><em><strong>Management Science</strong></em> (2022)</li>
-<li>Preliminary version appeared in <em><strong>International Conference on Machine Learning</strong></em> (2020)</li>
-<li>Winner, <span style="color: #000080;">INFORMS Data Mining Best Theoretical Paper Award</span>, 2020</li>
-</ul>
-</li>
-<li><a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=3380783">Phase Transitions in Bandits with Switching Constraints</a> (with David Simchi-Levi)
-<ul>
-<li><em><strong>Management Science</strong></em> (2023)</li>
-<li>Preliminary version appeared in <em><strong>Neural Information Processing Systems</strong></em> (2019)</li>
-<li>Finalist, <span style="color: #000080;">Applied Probability Society Best Student Paper Award</span>, 2019</li>
-</ul>
-</li>
-<li><a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=3243742">Assortment Optimization for a Multi-Stage Choice Model</a> (with Zizhuo Wang)
-<ul>
-<li style="margin: 0px; padding: 0px;"><em><strong>Manufacturing &amp; Service Operations Management</strong></em> (2023)</li>
-<li style="margin: 0px; padding: 0px;">Finalist, <span style="color: #000080;">INFORMS Undergraduate Operations Research Prize</span>, 2018</li>
-</ul>
-</li>
-<li><a href="https://papers.ssrn.com/sol3/Papers.cfm?abstract_id=3479477">Blind Network Revenue Management and Bandits with Knapsacks Under Limited Switches</a> (with David Simchi-Levi and Jinglong Zhao)
-<ul>
-<li><em><strong>Operations Research</strong></em> (2025)</li>
-<li>Finalist, IBM Service Science Best Student Paper Award, 2021</li>
-</ul>
-</li>
-</ul>
-<p><strong>Conference Publications</strong></p>
-<ul>
-<li><a href="https://arxiv.org/abs/2010.03104">Instance-Dependent Complexity of Contextual Bandits and Reinforcement Learning: A Disagreement-Based Perspective</a> (with Dylan Foster, Alexander Rakhlin, David Simchi-Levi)
-<ul>
-<li>Journal version to be submitted</li>
-<li>Conference version accepted to <strong><em>Conference on Learning Theory</em></strong> (2021)</li>
-</ul>
-</li>
-<li><a href="https://arxiv.org/abs/2111.10919">Offline Reinforcement Learning: Fundamental Barriers for Value Function Approximation</a> (with Dylan Foster, Akshay Krishnamurthy, David Simchi-Levi)
-<ul>
-<li>Journal version to be submitted</li>
-<li>Conference version accepted to <em><strong>Conference on Learning Theory</strong></em> (2022)</li>
-<li>Oral Presentation, NeurIPS 2021 Offline Reinforcement Learning Workshop</li>
-</ul>
-</li>
-<li><a href="https://arxiv.org/abs/2503.04010">Greedy Algorithm for Structured Bandits: A Sharp Characterization of Asymptotic Success/Failure</a> (with Alex Slivkins and Shiliang Zuo)</li>
-<ul>
-<li>Journal version to be submitted</li>
-<li>Conference version accepted to <em><strong>Neural Information Processing Systems</strong></em> (2025)</li>
-</ul>
-</li>
-</ul>
-<p><strong>Selected Working Papers</strong></p>
-<ul>
-<li><a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=5261068">Feature-Based Dynamic Pricing with Online Learning and Offline Data</a> (with Jinzhi Bu, David Simchi-Levi, and Sabrina Zhai)</li>
-</ul>
-<ul>
-<li><a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=5360747">Spatial Matching of Random Samples on a Circle: Theoretic Analysis and Applications on Ride-Hailing Systems</a> (with Hao Liang and Zizhuo Wang)</li>
-</ul>
-<ul>
-<li><a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=5434274">Meta Dynamic Pricing with Nonparametric Empirical Bayes</a> (with Jinhui Han, Ming Hu, and Xilin Zhang)</li>
-</ul>
-<p><strong>Doctoral Thesis</strong></p>
-<ul>
-<li><a title="Yunzong Xu Doctoral Thesis" href="files/Yunzong_Xu_PhD_Thesis.pdf" target="_blank" rel="noopener">Data-Driven Dynamic Decision Making: Algorithms, Structures, and Complexity Analysis</a>
-<ul>
-<li>Massachusetts Institute of Technology (2023)</li>
-</ul>
-</li>
-</ul>
-</div>
-<!-- Closing for .field-item --></div>
-<!-- Closing for .field-items --></div>
-<!-- Closing for .field-name-body --></div>
-<!-- Closing for .article-content --></section>
-<section id="teaching" class="section">
-<h2>Teaching</h2>
-<ul>
-<li>IE598 Foundations of Modern Machine Learning (Fall 2024)<br />
-<ul>
-<li>A new graduate course I introduced at UIUC, covering theoretical foundations of statistical learning, online learning (full and partial information), and deep learning, with applications in modern AI and data-driven decision making</li>
-<li>Featured in the <a href="https://citl.illinois.edu/citl-101/measurement-evaluation/teaching-evaluation/teaching-evaluations-(ices)/teachers-ranked-as-excellent">List of Teachers Ranked as Excellent by Their Students</a></li>
-</ul>
-</li>
-</ul>
-</section>
-<section id="contact" class="section">
-<h2>Contact</h2>
-<p>Email: xyz at illinois dot edu</p>
-<p>For PhD applicants: Thank you for your interest. Please apply directly through the ISE, CS, or ECE departments. Due to the high volume of inquiries, I&rsquo;m unable to respond to individual questions regarding PhD admissions. I appreciate your understanding.</p>
-</section>
-<p>&nbsp;</p>
-<div class="footnotes">
-<p id="fn1">1. Authorship is ordered alphabetically by default. <a title="Jump back to footnote 1 in the text." href="#ref1">↩</a></p>
-</div>
+</body>
+</html>
